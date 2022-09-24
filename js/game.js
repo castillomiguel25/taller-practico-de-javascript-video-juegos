@@ -1,26 +1,47 @@
 const canvas = document.querySelector('#game');
 const game = canvas.getContext('2d');
 
-window.addEventListener('load', startGame );
+window.addEventListener('load', setcanvasSize);
+window.addEventListener('resize', setcanvasSize);
 
-function startGame () {
+// variables globales
+let elementSize;
+let canvasSize;
 
-    let canvasSize;
-    if (window.innerHeight > window.innerWidth) {
-        canvasSize = window.innerWidth * 0.8;
-    }else {
-        canvasSize = window.innerHeight * 0.8;
+
+function startGame() {
+  console.log({ elementSize, canvasSize });
+
+  game.font = (elementSize - 18) + 'px Verdana';
+  game.textAlign = 'end';
+
+  const map = maps[2];
+  const mapRows = map.trim().split('\n');
+  const mapRowCols = mapRows.map(row => row.trim().split(''));
+  console.log(map, mapRows, mapRowCols)
+
+
+  for (let row = 1; row <= 10; row++) {
+    for (let col = 1; col <= 10; col++) {
+      game.fillText(emojis[mapRowCols[row - 1][col - 1]], elementSize * col, elementSize * row);
+
     }
 
-    canvas.setAttribute('width', canvasSize);
-    canvas.setAttribute('height', canvasSize);
+  }
+}
 
-    const elementSise = canvasSize / 10;
+// function para tamano ideal
+function setcanvasSize() {
+  let canvasSize;
+  if (window.innerHeight > window.innerWidth) {
+    canvasSize = window.innerWidth * 0.8;
+  } else {
+    canvasSize = window.innerHeight * 0.9;
+  }
 
-    console.log({elementSise, canvasSize});
-    game.font = elementSise + 'px Verdana';
-    game.fillText(emojis['X'], 100, 100);
+  canvas.setAttribute('width', canvasSize);
+  canvas.setAttribute('height', canvasSize);
 
-    // game.fillRect(0,50,100,100);
-    
+  elementSize = (canvasSize / 10) - 1;
+  startGame()
 }
