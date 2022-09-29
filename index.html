@@ -1,29 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
     <title>game on-line</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-    <div class="game-container">
-        <canvas id="game">
 
-        </canvas>
 
-        <div class="btn">
-            <button id="Up">Up</button>
-            <button id="Down">Down</button>
-            <button id="Left">Left</button>
-            <button id="Right">Right</button>
+
+    <audio loop id="gameMusic" src="Misterio.mp3"></audio>
+    <div class="game-menu">
+        <h1>ZODIACO🏹</h1>
+        <div class="menu-buttons">
+            <button class="playButton button menu-buttons__button"><a href="paso-1.html">PLAY</a> </button>
+            <button id="soundButton" class="button menu-buttons__button">SOUND: <span
+                    id="audio-state">OFF</span></button>
         </div>
     </div>
-    <div class="information">
-        <p>information</p>
-    </div>
-    <script src="js/map.js"></script>
-    <script src="js/game.js"></script>
+
+
+
+    <script src="js/music.js"></script>
 </body>
+
 </html>
