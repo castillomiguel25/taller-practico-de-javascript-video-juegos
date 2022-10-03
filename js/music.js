@@ -9,9 +9,9 @@ soundButton.addEventListener('click', manageMusic);
 function manageMusic() {
     if (!gameMusic.paused) {
         gameMusic.pause();
-        audioState.innerHTML = "OFF";
+        audioState.innerHTML = "🔈";
     } else {
         gameMusic.play();
-        audioState.innerHTML = "ON";
+        audioState.innerHTML = "🔊";
     }
   }
