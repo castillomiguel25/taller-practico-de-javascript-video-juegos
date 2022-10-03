@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,32 +8,32 @@
     <link rel="stylesheet" href="css/style.css">
     <title>game on-line</title>
 </head>
+
 <body>
-    
+
     <div class="game-container">
         <canvas id="game">
 
         </canvas>
-        <div style="font-size: 30px;" id="soundButton"><span
-            id="audio-state">🔈</span></button> </div>
+        <div style="font-size: 30px;" id="soundButton"><span id="audio-state">🔈</span></button> </div>
 
         <audio loop id="gameMusic" src="Misterio.mp3"></audio>
 
-         <div class="btn">
+        <div class="btn">
             <button id="Up">Up</button>
             <button id="Down">Down</button>
             <button id="Left">Left</button>
             <button id="Right">Right</button>
-        </div> 
+        </div>
 
-        
-        
+        <div class="information">
+            <p>information</p>
+        </div>
     </div>
-     <div class="information">
-        <p>information</p>
-    </div> 
+
     <script src="js/map.js"></script>
     <script src="js/game.js"></script>
     <script src="js/music.js"></script>
 </body>
+
 </html>

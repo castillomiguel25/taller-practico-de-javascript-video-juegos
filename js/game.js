@@ -93,9 +93,11 @@ function movePlayer() {
   const giftCollisionY = playerPosition.y.toFixed(3) == giftPosition.y.toFixed(3);
   const giftCollision = giftCollisionX && giftCollisionY;
 
+  // condicionar cuando llegamoms al regalo
   if (giftCollision) {
     levelWin()
   }
+
 
   const enemyCollisions = enemiesPositions.find(enemy => {
     const enemyCollisionsX = enemy.x == playerPosition.x;
@@ -104,7 +106,7 @@ function movePlayer() {
 
   });
   if (enemyCollisions) {
-    console.log('chocaste contra un enemigo');
+    levelFail();
   }
   game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
@@ -113,6 +115,13 @@ function levelWin() {
   console.log('subiste de nivel')
   level++;
   startGame()
+}
+
+function levelFail() {
+  console.log('chocaste')
+  playerPosition.x = undefined;
+  playerPosition.y = undefined;
+  startGame();
 }
 
 function gameWin() {
