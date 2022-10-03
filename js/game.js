@@ -18,6 +18,7 @@ window.addEventListener('resize', setcanvasSize);
 let elementSize;
 let canvasSize;
 let level = 0;
+let lives = 3;
 
 // posicion del jugador
 const playerPosition = {
@@ -119,6 +120,13 @@ function levelWin() {
 
 function levelFail() {
   console.log('chocaste')
+  lives --;
+  if (lives <= 0) {
+    level = 0;
+    lives = 3;
+  }
+
+
   playerPosition.x = undefined;
   playerPosition.y = undefined;
   startGame();
