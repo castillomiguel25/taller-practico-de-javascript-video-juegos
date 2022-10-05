@@ -9,6 +9,8 @@ const btnUp = document.querySelector('#Up');
 const btnLeft = document.querySelector('#Left');
 const btnRight = document.querySelector('#Right');
 const btnDown = document.querySelector('#Down');
+const spanLives = document.querySelector('#lives');
+const spanTimes = document.querySelector('#time');
 
 // resize y load de la pagina
 window.addEventListener('load', setcanvasSize);
@@ -19,6 +21,11 @@ let elementSize;
 let canvasSize;
 let level = 0;
 let lives = 3;
+
+// time
+let timeStart;
+let timePlayer;
+let timeInterval;
 
 // posicion del jugador
 const playerPosition = {
@@ -39,6 +46,7 @@ let enemiesPositions = [];
 // funcionalidad del juego
 
 function startGame() {
+  
   console.log({ elementSize, canvasSize });
 
   game.font = (elementSize - 18) + 'px Verdana';
@@ -52,10 +60,19 @@ function startGame() {
     return;
   }
 
+  if (!timeStart) {
+    timeStart = Date.now();
+    timeInterval = setInterval(showTime, 100);
+  }
+
   const mapRows = map.trim().split('\n');
   const mapRowCols = mapRows.map(row => row.trim().split(''));
   console.log(map, mapRows, mapRowCols)
 
+  // span de vidas
+  showLives()
+
+  // posicion del enemigo
   enemiesPositions = [];
   game.clearRect(0, 0, canvasSize, canvasSize);
   mapRowCols.forEach((row, rowI) => {
@@ -112,18 +129,24 @@ function movePlayer() {
   game.fillText(emojis['PLAYER'], playerPosition.x, playerPosition.y);
 }
 
+// funcion para subir de nivel
 function levelWin() {
   console.log('subiste de nivel')
   level++;
   startGame()
 }
 
+// funcion para restar vida 
 function levelFail() {
   console.log('chocaste')
-  lives --;
+  lives--;
+
+
+
   if (lives <= 0) {
     level = 0;
     lives = 3;
+    timeStart = undefined;
   }
 
 
@@ -134,6 +157,23 @@ function levelFail() {
 
 function gameWin() {
   console.log('terminaste el juego');
+  clearInterval(timeInterval);
+}
+
+
+// function de vida
+function showLives() {
+
+  const heartArray = Array(lives).fill(emojis['HEART']);
+  console.log(heartArray)
+
+  spanLives.innerHTML = heartArray;
+
+}
+
+// function para el tiempo
+function showTime() {
+spanTimes.innerHTML = +((Date.now()-timeStart)/1000);
 }
 
 // function para tamano ideal
