@@ -11,7 +11,8 @@ const btnRight = document.querySelector('#Right');
 const btnDown = document.querySelector('#Down');
 const spanLives = document.querySelector('#lives');
 const spanTimes = document.querySelector('#time');
-
+const spanRecord = document.querySelector('#Record');
+const pResult = document.querySelector('#result');
 // resize y load de la pagina
 window.addEventListener('load', setcanvasSize);
 window.addEventListener('resize', setcanvasSize);
@@ -46,13 +47,13 @@ let enemiesPositions = [];
 // funcionalidad del juego
 
 function startGame() {
-  
-  console.log({ elementSize, canvasSize });
 
-  game.font = (elementSize - 18) + 'px Verdana';
+  // console.log({ elementSize, canvasSize });
+
+  game.font = (elementSize - 8) + 'px Verdana';
   game.textAlign = 'end';
 
-  // const map de todos los papas del juego
+  // variables para los mapas del juego
   const map = maps[level];
 
   if (!map) {
@@ -60,9 +61,11 @@ function startGame() {
     return;
   }
 
+  // condicionar para imprimir el tiempo
   if (!timeStart) {
     timeStart = Date.now();
     timeInterval = setInterval(showTime, 100);
+    showRecord();
   }
 
   const mapRows = map.trim().split('\n');
@@ -158,6 +161,23 @@ function levelFail() {
 function gameWin() {
   console.log('terminaste el juego');
   clearInterval(timeInterval);
+
+  // local storage
+  const recordTime = localStorage.getItem('record_time');
+  const playerTime = Date.now() - timeStart;
+
+  if (recordTime) {
+    if (recordTime >= playerTime) {
+      localStorage.setItem('record_time', playerTime);
+      pResult.innerHTML = 'superaste el record'
+    } else {
+      pResult.innerHTML = 'lo siento no superaste el record';
+    }
+  } else {
+    localStorage.setItem('record_time', playerTime)
+  }
+
+  console.log({ recordTime, playerTime });
 }
 
 
@@ -173,26 +193,35 @@ function showLives() {
 
 // function para el tiempo
 function showTime() {
-spanTimes.innerHTML = +((Date.now()-timeStart)/1000);
+  spanTimes.innerHTML = + ((Date.now() - timeStart) / 1000);
+}
+
+function showRecord() {
+  spanRecord.innerHTML = (localStorage.getItem('record_time')/ 1000);
 }
 
 // function para tamano ideal
+
+
+
 function setcanvasSize() {
-
-  if (window.innerHeight > window.innerWidth) {
-    canvasSize = window.innerWidth * 0.7;
-  } else {
-    canvasSize = window.innerHeight * 0.7;
-  }
-
-  canvasSize = Number(canvasSize.toFixed());
+  let wHeight = window.innerHeight;
+  let wWidth = window.innerWidth;
+  
+  (wHeight < wWidth)
+      ? canvasSize = wHeight * 0.8
+      : canvasSize = wWidth * 0.8;
 
   canvas.setAttribute('width', canvasSize);
-  canvas.setAttribute('height', canvasSize);
+  canvas.setAttribute('height', canvasSize+10);
 
-  elementSize = (canvasSize / 10) - 1;
-  startGame()
+  elementSize = Math.floor(canvasSize/10);
+
+  playerPosition.x = undefined;
+  playerPosition.y = undefined;
+  startGame();
 }
+
 
 
 
