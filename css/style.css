@@ -11,6 +11,7 @@ body {
     justify-content: center;
     display: grid;
     margin-top: 15px;
+    margin-left: 30px;
 }
 
 canvas {
@@ -24,7 +25,7 @@ canvas {
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     justify-content: center;
-    width: 50%;
+
 }
 
 #Up {
@@ -43,7 +44,7 @@ canvas {
 }
 
 #Down {
-   
+
     grid-column: 2 / 3;
     grid-row: 3 / 4;
 }
@@ -143,5 +144,10 @@ p {
     #down {
         margin-left: 100%;
         margin-right: 100%;
+    }
+
+    .game-container {
+
+        margin-left: 30px;
     }
 }
