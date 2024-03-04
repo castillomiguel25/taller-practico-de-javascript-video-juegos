@@ -111,9 +111,6 @@ p {
 
 
 @media (min-width: 1024px) {
-    button {
-        display: none;
-    }
 
     #Up {
         display: none;
